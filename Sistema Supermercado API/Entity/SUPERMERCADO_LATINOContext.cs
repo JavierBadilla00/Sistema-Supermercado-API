@@ -23,6 +23,7 @@ namespace Sistema_Supermercado_API.Entity
         public virtual DbSet<CategoriaProducto> CategoriaProducto { get; set; }
         public virtual DbSet<Clientes> Clientes { get; set; }
         public virtual DbSet<Cuentas> Cuentas { get; set; }
+
         public virtual DbSet<DetalleVenta> DetalleVenta { get; set; }
         public virtual DbSet<Empleados> Empleados { get; set; }
         public virtual DbSet<Envios> Envios { get; set; }
