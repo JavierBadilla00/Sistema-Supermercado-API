@@ -7,7 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Sistema_Supermercado_API.Entity;
 
-namespace WebApiHotel.Controllers
+namespace Sistema_Supermercado_API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

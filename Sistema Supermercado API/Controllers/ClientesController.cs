@@ -11,48 +11,48 @@ namespace Sistema_Supermercado_API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CarritoComprasController : ControllerBase
+    public class ClientesController : ControllerBase
     {
         private readonly SUPERMERCADO_LATINOContext context;
-        public CarritoComprasController(SUPERMERCADO_LATINOContext context)
+        public ClientesController(SUPERMERCADO_LATINOContext context)
         {
             this.context = context;
         }
         [HttpGet]
-        public IEnumerable<CarritoCompras> Get()
+        public IEnumerable<Clientes> Get()
         {
-            return context.CarritoCompras.ToList();
+            return context.Clientes.ToList();
         }
-        [HttpGet("{string}", Name = "carritocompra Creada")]
+        [HttpGet("{string}", Name = "cliente Creada")]
         public IActionResult GetById(string id)
         {
-            var carritocompra = context.CarritoCompras.FirstOrDefault(x => x.Id == id);
-            if (carritocompra == null)
+            var cliente = context.Clientes.FirstOrDefault(x => x.Cedula == id);
+            if (cliente == null)
             {
                 return NotFound();
             }
-            return Ok(carritocompra);
+            return Ok(cliente);
         }
         [HttpPost]
-        public IActionResult Post([FromBody] CarritoCompras carritocompra)
+        public IActionResult Post([FromBody] Clientes cliente)
         {
             if (ModelState.IsValid)
             {
-                context.CarritoCompras.Add(carritocompra);
+                context.Clientes.Add(cliente);
                 context.SaveChanges();
-                return new CreatedAtRouteResult("carritocompra Creada",
-                new { id = carritocompra.Id }, carritocompra);
+                return new CreatedAtRouteResult("cliente Creada",
+                new { id = cliente.Cedula }, cliente);
             }
             return BadRequest(ModelState);
         }
         [HttpPut("{id}")]
-        public IActionResult Put([FromBody] CarritoCompras carritocompra, string id)
+        public IActionResult Put([FromBody] Clientes cliente, string id)
         {
-            if (carritocompra.Id != id)
+            if (cliente.Cedula != id)
             {
                 return BadRequest();
             }
-            context.Entry(carritocompra).State = EntityState.Modified;
+            context.Entry(cliente).State = EntityState.Modified;
             context.SaveChanges();
             return Ok();
 
@@ -60,15 +60,17 @@ namespace Sistema_Supermercado_API.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(string id)
         {
-            var carritocompra = context.CarritoCompras.FirstOrDefault(x => x.Id == id);
-            if (carritocompra == null)
+            var cliente = context.Clientes.FirstOrDefault(x => x.Cedula == id);
+            if (cliente == null)
             {
                 return NotFound();
             }
-            context.CarritoCompras.Remove(carritocompra);
+            context.Clientes.Remove(cliente);
             context.SaveChanges();
-            return Ok(carritocompra);
+            return Ok(cliente);
         }
     }
 }
+
+
 

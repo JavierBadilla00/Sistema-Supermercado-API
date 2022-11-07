@@ -11,48 +11,48 @@ namespace Sistema_Supermercado_API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CarritoComprasController : ControllerBase
+    public class CuentasController : ControllerBase
     {
         private readonly SUPERMERCADO_LATINOContext context;
-        public CarritoComprasController(SUPERMERCADO_LATINOContext context)
+        public CuentasController(SUPERMERCADO_LATINOContext context)
         {
             this.context = context;
         }
         [HttpGet]
-        public IEnumerable<CarritoCompras> Get()
+        public IEnumerable<Cuentas> Get()
         {
-            return context.CarritoCompras.ToList();
+            return context.Cuentas.ToList();
         }
-        [HttpGet("{string}", Name = "carritocompra Creada")]
+        [HttpGet("{string}", Name = "cuenta Creada")]
         public IActionResult GetById(string id)
         {
-            var carritocompra = context.CarritoCompras.FirstOrDefault(x => x.Id == id);
-            if (carritocompra == null)
+            var cuenta = context.Cuentas.FirstOrDefault(x => x.Id == id);
+            if (cuenta == null)
             {
                 return NotFound();
             }
-            return Ok(carritocompra);
+            return Ok(cuenta);
         }
         [HttpPost]
-        public IActionResult Post([FromBody] CarritoCompras carritocompra)
+        public IActionResult Post([FromBody] Cuentas cuenta)
         {
             if (ModelState.IsValid)
             {
-                context.CarritoCompras.Add(carritocompra);
+                context.Cuentas.Add(cuenta);
                 context.SaveChanges();
-                return new CreatedAtRouteResult("carritocompra Creada",
-                new { id = carritocompra.Id }, carritocompra);
+                return new CreatedAtRouteResult("cuenta Creada",
+                new { id = cuenta.Id }, cuenta);
             }
             return BadRequest(ModelState);
         }
         [HttpPut("{id}")]
-        public IActionResult Put([FromBody] CarritoCompras carritocompra, string id)
+        public IActionResult Put([FromBody] Cuentas cuenta, string id)
         {
-            if (carritocompra.Id != id)
+            if (cuenta.Id != id)
             {
                 return BadRequest();
             }
-            context.Entry(carritocompra).State = EntityState.Modified;
+            context.Entry(cuenta).State = EntityState.Modified;
             context.SaveChanges();
             return Ok();
 
@@ -60,15 +60,16 @@ namespace Sistema_Supermercado_API.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(string id)
         {
-            var carritocompra = context.CarritoCompras.FirstOrDefault(x => x.Id == id);
-            if (carritocompra == null)
+            var cuenta = context.Cuentas.FirstOrDefault(x => x.Id == id);
+            if (cuenta == null)
             {
                 return NotFound();
             }
-            context.CarritoCompras.Remove(carritocompra);
+            context.Cuentas.Remove(cuenta);
             context.SaveChanges();
-            return Ok(carritocompra);
+            return Ok(cuenta);
         }
     }
 }
+
 
