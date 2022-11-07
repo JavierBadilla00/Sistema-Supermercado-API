@@ -61,6 +61,7 @@ namespace Sistema_Supermercado_API.Controllers
         public IActionResult Delete(string id)
         {
             var tipoempleado = context.TipoEmpleado.FirstOrDefault(x => x.Id == id);
+
             if (tipoempleado == null)
             {
                 return NotFound();
