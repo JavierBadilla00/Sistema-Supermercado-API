@@ -36,7 +36,7 @@ namespace Sistema_Supermercado_API.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] Clientes clientes)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid) 
             {
                 context.Clientes.Add(clientes);
                 context.SaveChanges();
