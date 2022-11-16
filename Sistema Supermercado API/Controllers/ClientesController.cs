@@ -11,7 +11,7 @@ namespace Sistema_Supermercado_API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ClientesController : ControllerBase
+    public  class ClientesController : ControllerBase
     {
         private readonly SUPERMERCADO_LATINOContext context;
         public ClientesController(SUPERMERCADO_LATINOContext context)
@@ -26,33 +26,35 @@ namespace Sistema_Supermercado_API.Controllers
         [HttpGet("{string}", Name = "cliente Creada")]
         public IActionResult GetById(string id)
         {
-            var cliente = context.Clientes.FirstOrDefault(x => x.Cedula == id);
-            if (cliente == null)
+            var clientes = context.Clientes.FirstOrDefault(x => x.Cedula == id);
+            if (clientes == null)
             {
                 return NotFound();
             }
-            return Ok(cliente);
+            return Ok(clientes);
         }
         [HttpPost]
-        public IActionResult Post([FromBody] Clientes cliente)
+        public IActionResult Post([FromBody] Clientes clientes)
         {
             if (ModelState.IsValid)
             {
-                context.Clientes.Add(cliente);
+                context.Clientes.Add(clientes);
                 context.SaveChanges();
-                return new CreatedAtRouteResult("cliente Creada",
-                new { id = cliente.Cedula }, cliente);
+
+                return Ok(clientes);
+              //  return new CreatedAtRouteResult("cliente Creada",
+              //  new { id = clientes.Cedula }, clientes);
             }
             return BadRequest(ModelState);
         }
         [HttpPut("{id}")]
-        public IActionResult Put([FromBody] Clientes cliente, string id)
+        public IActionResult Put([FromBody] Clientes clientes, string id)
         {
-            if (cliente.Cedula != id)
+            if (clientes.Cedula != id)
             {
                 return BadRequest();
             }
-            context.Entry(cliente).State = EntityState.Modified;
+            context.Entry(clientes).State = EntityState.Modified;
             context.SaveChanges();
             return Ok();
 
@@ -60,14 +62,14 @@ namespace Sistema_Supermercado_API.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(string id)
         {
-            var cliente = context.Clientes.FirstOrDefault(x => x.Cedula == id);
-            if (cliente == null)
+            var clientes = context.Clientes.FirstOrDefault(x => x.Cedula == id);
+            if (clientes == null)
             {
                 return NotFound();
             }
-            context.Clientes.Remove(cliente);
+            context.Clientes.Remove(clientes);
             context.SaveChanges();
-            return Ok(cliente);
+            return Ok(clientes);
         }
     }
 }
