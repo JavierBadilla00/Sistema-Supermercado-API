@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-
-
+using System.Text.Json.Serialization;
 
 namespace Sistema_Supermercado_API.Entity
 {
@@ -15,6 +14,7 @@ namespace Sistema_Supermercado_API.Entity
         public string Telefono { get; set; }
         public string Correo { get; set; }
 
+        [JsonIgnore]
         public virtual Cuentas IdcuentaNavigation { get; set; }
         public virtual TipoEmpleado IdtipoNavigation { get; set; }
     }

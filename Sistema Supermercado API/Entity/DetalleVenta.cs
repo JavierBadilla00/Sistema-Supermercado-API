@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using System.Text.Json.Serialization;
 
 namespace Sistema_Supermercado_API.Entity
 {
@@ -12,6 +12,7 @@ namespace Sistema_Supermercado_API.Entity
         public int Cantidad { get; set; }
         public decimal? Total { get; set; }
 
+        [JsonIgnore]
         public virtual Productos IdproductoNavigation { get; set; }
     }
 }

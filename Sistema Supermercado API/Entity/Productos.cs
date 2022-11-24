@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-
-
+using System.Text.Json.Serialization;
 
 namespace Sistema_Supermercado_API.Entity
 {
@@ -19,6 +18,8 @@ namespace Sistema_Supermercado_API.Entity
         public string Idcategoria { get; set; }
         public string Nombre { get; set; }
         public decimal Precio { get; set; }
+
+        [JsonIgnore]
 
         public virtual CategoriaProducto IdcategoriaNavigation { get; set; }
         public virtual Proveedores IdproveedorNavigation { get; set; }
