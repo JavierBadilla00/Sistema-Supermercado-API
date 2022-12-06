@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text.Json.Serialization;
 
-namespace Sistema_Supermercado_API.Entity
+// Code scaffolded by EF Core assumes nullable reference types (NRTs) are not used or disabled.
+// If you have enabled NRTs for your project, then un-comment the following line:
+// #nullable disable
+
+namespace Sistema_Supermercado_API.Entities
 {
     public partial class Proveedores
     {
@@ -11,10 +14,8 @@ namespace Sistema_Supermercado_API.Entity
             Productos = new HashSet<Productos>();
         }
 
-        public string Id { get; set; }
+        public int Id { get; set; }
         public string NombreTipo { get; set; }
-
-          [JsonIgnore]
 
         public virtual ICollection<Productos> Productos { get; set; }
     }

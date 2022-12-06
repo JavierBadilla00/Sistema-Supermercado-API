@@ -9,51 +9,50 @@ using Sistema_Supermercado_API.Entities;
 
 namespace Sistema_Supermercado_API.Controllers
 {
-
     [Route("api/[controller]")]
     [ApiController]
-    public class TarjetaController : ControllerBase
+    public class VentaController : ControllerBase
     {
         private readonly SupermercadoBDContext context;
-        public TarjetaController(SupermercadoBDContext context)
+        public VentaController(SupermercadoBDContext context)
         {
             this.context = context;
         }
         [HttpGet]
-        public IEnumerable<Tarjeta> Get()
+        public IEnumerable<Venta> Get()
         {
-            return context.Tarjeta.ToList();
+            return context.Venta.ToList();
         }
-        [HttpGet("{id}", Name = "tarjeta Creada")]
+        [HttpGet("{id}", Name = "venta Creada")]
         public IActionResult GetById(int id)
         {
-            var tarjeta = context.Tarjeta.FirstOrDefault(x => x.Id == id);
-            if (tarjeta == null)
+            var venta = context.Venta.FirstOrDefault(x => x.Id == id);
+            if (venta == null)
             {
                 return NotFound();
             }
-            return Ok(tarjeta);
+            return Ok(venta);
         }
         [HttpPost]
-        public IActionResult Post([FromBody] Tarjeta tarjeta)
+        public IActionResult Post([FromBody] Venta venta)
         {
             if (ModelState.IsValid)
             {
-                context.Tarjeta.Add(tarjeta);
+                context.Venta.Add(venta);
                 context.SaveChanges();
-                return new CreatedAtRouteResult("tarjeta Creada",
-                new { id = tarjeta.Id }, tarjeta);
+                return new CreatedAtRouteResult("venta Creada",
+                new { id = venta.Id }, venta);
             }
             return BadRequest(ModelState);
         }
         [HttpPut("{id}")]
-        public IActionResult Put([FromBody] Tarjeta tarjeta, int id)
+        public IActionResult Put([FromBody] Venta venta, int id)
         {
-            if (tarjeta.Id != id)
+            if (venta.Id != id)
             {
                 return BadRequest();
             }
-            context.Entry(tarjeta).State = EntityState.Modified;
+            context.Entry(venta).State = EntityState.Modified;
             context.SaveChanges();
             return Ok();
 
@@ -61,15 +60,15 @@ namespace Sistema_Supermercado_API.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            var tarjeta = context.Tarjeta.FirstOrDefault(x => x.Id == id);
-
-            if (tarjeta == null)
+            var venta = context.Venta.FirstOrDefault(x => x.Id == id);
+            if (venta == null)
             {
                 return NotFound();
             }
-            context.Tarjeta.Remove(tarjeta);
+            context.Venta.Remove(venta);
             context.SaveChanges();
-            return Ok(tarjeta);
+            return Ok(venta);
         }
     }
 }
+

@@ -5,16 +5,18 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Sistema_Supermercado_API.Entity;
+using Sistema_Supermercado_API.Entities;
+using Microsoft.Data.SqlClient;
+using System.Data;
 
 namespace Sistema_Supermercado_API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public  class ClientesController : ControllerBase
+    public class ClientesController : ControllerBase
     {
-        private readonly SUPERMERCADO_LATINOContext context;
-        public ClientesController(SUPERMERCADO_LATINOContext context)
+        private readonly SupermercadoBDContext context;
+        public ClientesController(SupermercadoBDContext context)
         {
             this.context = context;
         }
@@ -23,10 +25,10 @@ namespace Sistema_Supermercado_API.Controllers
         {
             return context.Clientes.ToList();
         }
-        [HttpGet("{string}", Name = "cliente Creada")]
-        public IActionResult GetById(string id)
+        [HttpGet("{id}", Name = "cliente Creada")]
+        public IActionResult GetById(int id)
         {
-            var clientes = context.Clientes.FirstOrDefault(x => x.Cedula == id);
+            var clientes = context.Clientes.FirstOrDefault(x => x.Id == id);
             if (clientes == null)
             {
                 return NotFound();
@@ -36,21 +38,21 @@ namespace Sistema_Supermercado_API.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] Clientes clientes)
         {
-            if (ModelState.IsValid) 
+            if (ModelState.IsValid)
             {
                 context.Clientes.Add(clientes);
                 context.SaveChanges();
 
                 return Ok(clientes);
-              //  return new CreatedAtRouteResult("cliente Creada",
-              //  new { id = clientes.Cedula }, clientes);
+                //  return new CreatedAtRouteResult("cliente Creada",
+                //  new { id = clientes.Id }, clientes);
             }
             return BadRequest(ModelState);
         }
         [HttpPut("{id}")]
-        public IActionResult Put([FromBody] Clientes clientes, string id)
+        public IActionResult Put([FromBody] Clientes clientes, int id)
         {
-            if (clientes.Cedula != id)
+            if (clientes.Id != id)
             {
                 return BadRequest();
             }
@@ -60,9 +62,9 @@ namespace Sistema_Supermercado_API.Controllers
 
         }
         [HttpDelete("{id}")]
-        public IActionResult Delete(string id)
+        public IActionResult Delete(int id)
         {
-            var clientes = context.Clientes.FirstOrDefault(x => x.Cedula == id);
+            var clientes = context.Clientes.FirstOrDefault(x => x.Id == id);
             if (clientes == null)
             {
                 return NotFound();

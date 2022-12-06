@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Sistema_Supermercado_API.Entity;
+using Sistema_Supermercado_API.Entities;
 
 namespace Sistema_Supermercado_API.Controllers
 {
@@ -13,8 +13,8 @@ namespace Sistema_Supermercado_API.Controllers
     [ApiController]
     public class CarritoComprasController : ControllerBase
     {
-        private readonly SUPERMERCADO_LATINOContext context;
-        public CarritoComprasController(SUPERMERCADO_LATINOContext context)
+        private readonly SupermercadoBDContext context;
+        public CarritoComprasController(SupermercadoBDContext context)
         {
             this.context = context;
         }
@@ -23,8 +23,8 @@ namespace Sistema_Supermercado_API.Controllers
         {
             return context.CarritoCompras.ToList();
         }
-        [HttpGet("{string}", Name = "carritocompra Creada")]
-        public IActionResult GetById(string id)
+        [HttpGet("{id}", Name = "carritocompra Creada")]
+        public IActionResult GetById(int id)
         {
             var carritocompra = context.CarritoCompras.FirstOrDefault(x => x.Id == id);
             if (carritocompra == null)
@@ -46,7 +46,7 @@ namespace Sistema_Supermercado_API.Controllers
             return BadRequest(ModelState);
         }
         [HttpPut("{id}")]
-        public IActionResult Put([FromBody] CarritoCompras carritocompra, string id)
+        public IActionResult Put([FromBody] CarritoCompras carritocompra, int id)
         {
             if (carritocompra.Id != id)
             {
@@ -58,7 +58,7 @@ namespace Sistema_Supermercado_API.Controllers
 
         }
         [HttpDelete("{id}")]
-        public IActionResult Delete(string id)
+        public IActionResult Delete(int id)
         {
             var carritocompra = context.CarritoCompras.FirstOrDefault(x => x.Id == id);
             if (carritocompra == null)

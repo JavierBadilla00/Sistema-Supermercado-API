@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Sistema_Supermercado_API.Entity;
+using Sistema_Supermercado_API.Entities;
 
 namespace Sistema_Supermercado_API.Controllers
 {
@@ -13,8 +13,8 @@ namespace Sistema_Supermercado_API.Controllers
     [ApiController]
     public class DetalleVentaController : ControllerBase
     {
-        private readonly SUPERMERCADO_LATINOContext context;
-        public DetalleVentaController(SUPERMERCADO_LATINOContext context)
+        private readonly SupermercadoBDContext context;
+        public DetalleVentaController(SupermercadoBDContext context)
         {
             this.context = context;
         }
@@ -23,8 +23,8 @@ namespace Sistema_Supermercado_API.Controllers
         {
             return context.DetalleVenta.ToList();
         }
-        [HttpGet("{string}", Name = "detalleventa Creada")]
-        public IActionResult GetById(string id)
+        [HttpGet("{id}", Name = "detalleventa Creada")]
+        public IActionResult GetById(int id)
         {
             var detalleventa = context.DetalleVenta.FirstOrDefault(x => x.Id == id);
             if (detalleventa == null)
@@ -46,7 +46,7 @@ namespace Sistema_Supermercado_API.Controllers
             return BadRequest(ModelState);
         }
         [HttpPut("{id}")]
-        public IActionResult Put([FromBody] DetalleVenta detalleventa, string id)
+        public IActionResult Put([FromBody] DetalleVenta detalleventa, int id)
         {
             if (detalleventa.Id != id)
             {
@@ -58,7 +58,7 @@ namespace Sistema_Supermercado_API.Controllers
 
         }
         [HttpDelete("{id}")]
-        public IActionResult Delete(string id)
+        public IActionResult Delete(int id)
         {
             var detalleventa = context.DetalleVenta.FirstOrDefault(x => x.Id == id);
             if (detalleventa == null)
